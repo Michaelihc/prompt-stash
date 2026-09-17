@@ -7,14 +7,29 @@ through ideas. Everything saves itself. Nothing leaves your machine.
 
 ## Install
 
-Run `release/PromptStash-Setup-1.0.0.exe`.
+Download from [the latest release](https://github.com/Michaelihc/prompt-stash/releases/latest):
+
+| Your machine | File |
+| --- | --- |
+| Windows on Intel or AMD — almost everyone | `PromptStash-Setup-<version>-x64.exe` |
+| Windows on ARM — Surface Pro X / 11, Snapdragon X | `PromptStash-Setup-<version>-arm64.exe` |
+| Not sure | `PromptStash-Setup-<version>.exe` — contains both, picks for you |
 
 It installs for your user only, so Windows will not ask for administrator rights. The
 installer is not code-signed, so SmartScreen shows a "Windows protected your PC" notice
-the first time — **More info → Run anyway**.
+the first time — **More info → Run anyway**. Every release ships `SHA256SUMS.txt` if you
+would rather check the file first:
+
+```powershell
+Get-FileHash .\PromptStash-Setup-1.0.0-x64.exe -Algorithm SHA256
+```
 
 Your prompts live in `%APPDATA%\Prompt Stash\stash.db`. Uninstalling leaves that folder
 alone; removing the app never removes your writing.
+
+Building it yourself: `npm install && npm run dist` produces both installers in
+`release/`, and `npm run check-arch` reads their PE headers back to confirm each one is
+the architecture it claims to be.
 
 ## What it does
 
@@ -160,7 +175,8 @@ npm run test:crash  # kills the running app and checks what survived
 npm run test:all    # everything
 npm run typecheck
 npm run shots       # seeds a demo profile and captures the screenshots above
-npm run dist        # build release/PromptStash-Setup-<version>.exe
+npm run dist        # build both installers into release/
+npm run check-arch  # verify each built exe is really x64 / ARM64
 ```
 
 The app icon is generated, not drawn: `npm run icon` rasterises it from signed-distance
