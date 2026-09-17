@@ -1,0 +1,82 @@
+{
+  "name": "prompt-stash",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A fast, fully-local stash for your prompts, drafts and ideas.",
+  "author": "Michael",
+  "license": "MIT",
+  "main": "dist/main/main.js",
+  "type": "commonjs",
+  "scripts": {
+    "icon": "node tools/make-icon.mjs",
+    "build": "node tools/build.mjs",
+    "dev": "node tools/dev.mjs",
+    "start": "node tools/build.mjs && node tools/start.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node tools/build.mjs && node tools/test-store.mjs && node tools/test-sections.mjs",
+    "dist": "node tools/build.mjs && electron-builder --win nsis --x64 --arm64",
+    "test:crash": "node tools/build.mjs && node tools/test-durability.mjs",
+    "test:all": "node tools/build.mjs && node tools/test-store.mjs && node tools/test-sections.mjs && node tools/test-ui.mjs && node tools/test-durability.mjs",
+    "shots": "node tools/build.mjs && node tools/shots.mjs",
+    "test:ui": "node tools/build.mjs && node tools/test-ui.mjs",
+    "check-arch": "node tools/check-arch.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.2",
+    "electron": "41.5.0",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  },
+  "build": {
+    "appId": "com.michael.promptstash",
+    "productName": "Prompt Stash",
+    "copyright": "Copyright © 2026 Michael",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json",
+      "!**/*.map"
+    ],
+    "asar": true,
+    "compression": "normal",
+    "electronLanguages": [
+      "en-US"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "PromptStash-Setup-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Prompt Stash",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "artifactName": "PromptStash-Setup-${version}-${arch}.${ext}"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Michaelihc/prompt-stash.git"
+  }
+}

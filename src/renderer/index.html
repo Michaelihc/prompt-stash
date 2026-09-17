@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'"
+    />
+    <title>Prompt Stash</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="titlebar">
+      <span class="titlebar-mark" aria-hidden="true"></span>
+      <span class="titlebar-name">Prompt Stash</span>
+      <span class="titlebar-context" id="titlebar-context"></span>
+    </header>
+
+    <main class="shell" id="shell">
+      <section class="index" aria-label="Your prompts">
+        <button id="project-scope" class="scope-button" type="button" aria-label="Filter by project">
+          <span class="scope-dot" id="scope-dot"></span>
+          <span class="scope-name" id="scope-name">All projects</span>
+          <span class="scope-caret" aria-hidden="true">&#9662;</span>
+        </button>
+
+        <div class="index-search">
+          <input
+            id="search"
+            type="text"
+            class="search-input"
+            placeholder="Search prompts"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search prompts"
+          />
+          <button id="search-clear" class="search-clear" type="button" aria-label="Clear search" hidden>
+            &times;
+          </button>
+        </div>
+
+        <div class="index-filters" id="filters"></div>
+
+        <div class="index-scroll" id="list-scroll" tabindex="-1">
+          <div class="index-sizer" id="list-sizer"></div>
+          <div class="index-rows" id="list-rows"></div>
+          <div class="index-empty" id="list-empty" hidden></div>
+        </div>
+
+        <footer class="index-foot">
+          <span id="count-label"></span>
+          <button id="new-button" class="ghost-button" type="button">New prompt</button>
+        </footer>
+      </section>
+
+      <section class="editor" aria-label="Prompt editor">
+        <div class="editor-blank" id="editor-blank">
+          <p class="blank-lead">Nothing open.</p>
+          <p class="blank-hint">
+            Press <kbd>Ctrl</kbd><kbd>N</kbd> to stash a new prompt, or pick one from the list.
+          </p>
+        </div>
+
+        <div class="editor-pane" id="editor-pane" hidden>
+          <input
+            id="title"
+            class="editor-title"
+            type="text"
+            placeholder="Untitled"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Prompt title"
+          />
+
+          <div class="editor-tags" id="tag-row"></div>
+
+          <div class="editor-body">
+            <div class="editor-backdrop" id="backdrop" aria-hidden="true"></div>
+            <textarea
+              id="body"
+              class="editor-text"
+              placeholder="Write the prompt. Wrap placeholders in double braces to fill them in on copy."
+              spellcheck="false"
+              autocomplete="off"
+              aria-label="Prompt text"
+            ></textarea>
+          </div>
+
+          <footer class="editor-foot">
+            <span class="foot-metrics" id="metrics"></span>
+            <span class="foot-right">
+              <span class="save-state" id="save-state" data-state="saved"></span>
+              <button id="copy-button" class="primary-button" type="button">Copy</button>
+            </span>
+          </footer>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <div class="overlay" id="overlay" hidden>
+      <div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
+    </div>
+
+    <div class="fatal" id="fatal" hidden></div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
