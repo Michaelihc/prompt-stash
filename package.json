@@ -54,6 +54,13 @@
             "x64",
             "arm64"
           ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
         }
       ],
       "icon": "build/icon.ico",
@@ -73,6 +80,9 @@
       "uninstallerIcon": "build/icon.ico",
       "installerHeaderIcon": "build/icon.ico",
       "artifactName": "PromptStash-Setup-${version}-${arch}.${ext}"
+    },
+    "zip": {
+      "artifactName": "PromptStash-${version}-${arch}-portable.${ext}"
     }
   },
   "repository": {
